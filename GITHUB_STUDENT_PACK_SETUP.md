@@ -51,8 +51,6 @@ Railway offers:
 6. Under "Database User Privileges", select **"Atlas admin"**
 7. Click **"Add User"**
 
-dumpit-admin
-HH6QHIpQdZbJ1Gra password
 
 ### Step 5: Configure Network Access
 
@@ -71,7 +69,6 @@ HH6QHIpQdZbJ1Gra password
    ```
    mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
 
-   mongodb+srv://dumpit-admin:HH6QHIpQdZbJ1Gra@cluster0.5bpn3fo.mongodb.net/?appName=Cluster0
    ```
 6. Replace `<username>` with your database username
 7. Replace `<password>` with your database password (the one you copied earlier)
@@ -85,7 +82,6 @@ mongodb+srv://dumpit-admin:YourPassword123@cluster0.xxxxx.mongodb.net/dumpit?ret
 ### Step 7: Save Connection String
 
 Save this connection string - you'll use it in Part 4 when deploying!
-mongodb+srv://dumpit-admin:HH6QHIpQdZbJ1Gra@cluster0.5bpn3fo.mongodb.net/?appName=Cluster0
 
 ---
 
@@ -114,15 +110,15 @@ mongodb+srv://dumpit-admin:HH6QHIpQdZbJ1Gra@cluster0.5bpn3fo.mongodb.net/?appNam
 5. Under "TTL", leave as "Never expire" (or set expiration if preferred)
 6. Click **"Create API Token"**
 7. **COPY BOTH VALUES:**
-   - **Access Key ID**  99369ebddc3e9e18e87d347063c7e706
-   - **Secret Access Key**  c18e6bd8eea3abf53cfad7b3211df9bd8005c583045598ad8cab939fc0958569
+   - **Access Key ID** 
+   - **Secret Access Key**
    Save these - you'll need them!
 
 ### Step 4: Get R2 Endpoint URL
 
 1. Go back to your R2 bucket
 2. Click on your bucket name
-3. Under "Settings", find **"S3 API"**
+3. Under "Settings", find **"S3 API"** 
 4. **COPY the endpoint URL** - it looks like:
    ```
    https://xxxxx.r2.cloudflarestorage.com

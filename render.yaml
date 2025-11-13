@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dump-it-backend
+    env: node
+    buildCommand: npm install && cd client && npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      # Add your environment variables in Render dashboard:
+      # MONGODB_URI
+      # R2_ACCESS_KEY_ID (or AWS_ACCESS_KEY_ID)
+      # R2_SECRET_ACCESS_KEY (or AWS_SECRET_ACCESS_KEY)
+      # R2_BUCKET_NAME (or AWS_S3_BUCKET)
+      # R2_ENDPOINT_URL (or AWS_REGION)
+

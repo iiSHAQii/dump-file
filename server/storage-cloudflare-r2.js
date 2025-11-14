@@ -13,6 +13,7 @@ const R2_ENDPOINT_URL = process.env.R2_ENDPOINT_URL;
 let s3Client = null;
 
 function initStorage() {
+  console.log('--- STORAGE-R2-FILE v3.0 (with forcePathStyle) LOADED ---');
   if (!R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET_NAME || !R2_ENDPOINT_URL) {
     console.warn('R2 credentials not provided, using local storage');
     return false;

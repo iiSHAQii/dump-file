@@ -85,32 +85,34 @@ async function uploadFile(file, originalName) {
 //   return publicUrl;
 // }
 async function getFileUrl(filename) {
-  console.log(`--- GETFILEURL v4.0 CALLED FOR: ${filename} ---`);
-  // ADD THIS LINE:
+  // This is our new v5.0 check
+  console.log(`--- GETFILEURL v5.0 CALLED FOR: ${filename} ---`);
+  
+  // This checks the environment variable *before* it's used
   console.log(`--- ENDPOINT VARIABLE IS: ${process.env.R2_ENDPOINT_FIXED} ---`); 
   
   if (!s3Client) {
     return `/uploads/${filename}`;
   }
 
-  // This is the fix:
-  // We create a command to get the object...
   const command = new GetObjectCommand({
     Bucket: R2_BUCKET_NAME,
     Key: filename,
-    // This part tells the browser to "download" the file
-    // instead of trying to "view" it (optional but good)
     ResponseContentDisposition: `attachment; filename="${filename}"`
   });
 
-  // ...then we create a temporary, secure URL that expires
-  // (default is 3600 seconds / 1 hour)
   try {
     const signedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    
+    // --- THIS IS THE NEW LINE YOU ASKED FOR ---
+    console.log(`--- GENERATED URL IS: ${signedUrl} ---`);
+    // ------------------------------------------
+    
     return signedUrl;
+
   } catch (err) {
     console.error("Error creating signed URL", err);
-    return null; // Or handle the error as you see fit
+    return null; 
   }
 }
 

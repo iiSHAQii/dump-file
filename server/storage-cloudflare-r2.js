@@ -85,10 +85,10 @@ async function uploadFile(file, originalName) {
 //   return publicUrl;
 // }
 async function getFileUrl(filename) {
-  console.log(`--- GETFILEURL v3.0 CALLED FOR: ${filename} ---`); // <-- ADD THIS
-  if (!s3Client) {
-    return `/uploads/${filename}`;
-  }
+  console.log(`--- GETFILEURL v4.0 CALLED FOR: ${filename} ---`);
+  // ADD THIS LINE:
+  console.log(`--- ENDPOINT VARIABLE IS: ${process.env.R2_ENDPOINT_FIXED} ---`); 
+  
   if (!s3Client) {
     return `/uploads/${filename}`;
   }

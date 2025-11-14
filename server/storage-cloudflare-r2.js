@@ -85,6 +85,10 @@ async function uploadFile(file, originalName) {
 //   return publicUrl;
 // }
 async function getFileUrl(filename) {
+  console.log(`--- GETFILEURL v3.0 CALLED FOR: ${filename} ---`); // <-- ADD THIS
+  if (!s3Client) {
+    return `/uploads/${filename}`;
+  }
   if (!s3Client) {
     return `/uploads/${filename}`;
   }

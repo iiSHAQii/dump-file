@@ -237,6 +237,7 @@ app.get('/api/anonymous-files', async (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok',
+    version: 2.0, // <-- ADD THIS LINE
     database: process.env.MONGODB_URI ? 'MongoDB' : 'SQLite',
     storage: useCloudStorage ? (process.env.R2_ACCESS_KEY_ID ? 'Cloudflare R2' : 'AWS S3') : 'Local'
   });

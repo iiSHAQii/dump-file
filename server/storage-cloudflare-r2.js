@@ -1,6 +1,7 @@
 const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const { Upload } = require('@aws-sdk/lib-storage');
 const path = require('path');
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 // Cloudflare R2 is S3-compatible, so we use AWS SDK
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
@@ -69,17 +70,42 @@ async function uploadFile(file, originalName) {
   };
 }
 
+// async function getFileUrl(filename) {
+//   if (!s3Client) {
+//     return `/uploads/${filename}`;
+//   }
+
+//   console.log('DEBUG: R2_ENDPOINT_URL is:', R2_ENDPOINT_URL);
+
+//   // For R2, you can generate a signed URL or use public URL
+//   // If bucket is public, you can construct URL directly
+//   const publicUrl = `${R2_ENDPOINT_URL}/${R2_BUCKET_NAME}/${filename}`;
+//   return publicUrl;
+// }
 async function getFileUrl(filename) {
   if (!s3Client) {
     return `/uploads/${filename}`;
   }
 
-  console.log('DEBUG: R2_ENDPOINT_URL is:', R2_ENDPOINT_URL);
+  // This is the fix:
+  // We create a command to get the object...
+  const command = new GetObjectCommand({
+    Bucket: R2_BUCKET_NAME,
+    Key: filename,
+    // This part tells the browser to "download" the file
+    // instead of trying to "view" it (optional but good)
+    ResponseContentDisposition: `attachment; filename="${filename}"`
+  });
 
-  // For R2, you can generate a signed URL or use public URL
-  // If bucket is public, you can construct URL directly
-  const publicUrl = `${R2_ENDPOINT_URL}/${R2_BUCKET_NAME}/${filename}`;
-  return publicUrl;
+  // ...then we create a temporary, secure URL that expires
+  // (default is 3600 seconds / 1 hour)
+  try {
+    const signedUrl = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    return signedUrl;
+  } catch (err) {
+    console.error("Error creating signed URL", err);
+    return null; // Or handle the error as you see fit
+  }
 }
 
 function isCloudStorage() {

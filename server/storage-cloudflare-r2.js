@@ -74,6 +74,8 @@ async function getFileUrl(filename) {
     return `/uploads/${filename}`;
   }
 
+  console.log('DEBUG: R2_ENDPOINT_URL is:', R2_ENDPOINT_URL);
+
   // For R2, you can generate a signed URL or use public URL
   // If bucket is public, you can construct URL directly
   const publicUrl = `${R2_ENDPOINT_URL}/${R2_BUCKET_NAME}/${filename}`;

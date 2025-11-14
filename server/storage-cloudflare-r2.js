@@ -25,6 +25,7 @@ function initStorage() {
       accessKeyId: R2_ACCESS_KEY_ID,
       secretAccessKey: R2_SECRET_ACCESS_KEY,
     },
+    forcePathStyle: true,
   });
 
   console.log('Cloudflare R2 storage initialized');
